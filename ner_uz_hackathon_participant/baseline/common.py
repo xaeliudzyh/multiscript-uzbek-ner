@@ -177,37 +177,83 @@ def tokenize_windows(
 ) -> list[tuple[ModelFeature, Offsets]]:
     """Разбивает текст на перекрывающиеся окна и сохраняет координаты токенов."""
 
+    content_length = max_length - tokenizer.num_special_tokens_to_add(pair=False)
+    if content_length < 1:
+        raise ValueError("max-length is too small for tokenizer special tokens")
+    if not 0 <= stride < content_length:
+        raise ValueError(f"stride must be between 0 and {content_length - 1}")
+
+    # Сначала токенизируем весь текст без truncation, затем вручную строим
+    # окна. Это не позволяет fast tokenizer потерять неполное последнее окно.
     encoded = tokenizer(
         text,
-        truncation=True,
-        max_length=max_length,
-        stride=stride,
+        add_special_tokens=False,
+        truncation=False,
         return_offsets_mapping=True,
-        return_overflowing_tokens=True,
+        verbose=False,
     )
-    input_chunks = encoded["input_ids"]
-    offset_chunks = encoded["offset_mapping"]
-    if input_chunks and isinstance(input_chunks[0], int):
-        input_chunks = [input_chunks]
-        offset_chunks = [offset_chunks]
+    input_ids = [int(token_id) for token_id in encoded["input_ids"]]
+    offsets = [(int(start), int(end)) for start, end in encoded["offset_mapping"]]
+    if len(input_ids) != len(offsets):
+        raise RuntimeError("tokenizer returned different input_ids and offset_mapping lengths")
 
     windows: list[tuple[ModelFeature, Offsets]] = []
-    for chunk_index, offsets in enumerate(offset_chunks):
-        feature: ModelFeature = {}
-        for key in ("input_ids", "attention_mask"):
-            if key not in encoded:
-                continue
-            values = encoded[key]
-            feature[key] = values[chunk_index] if values and isinstance(values[0], list) else values
-        windows.append((feature, [(int(start), int(end)) for start, end in offsets]))
+    step = content_length - stride
+    window_starts = range(0, len(input_ids), step) if input_ids else (0,)
+
+    for window_start in window_starts:
+        window_end = min(window_start + content_length, len(input_ids))
+        content_ids = input_ids[window_start:window_end]
+        content_offsets = offsets[window_start:window_end]
+
+        prefix_id = (
+            tokenizer.cls_token_id
+            if tokenizer.cls_token_id is not None
+            else tokenizer.bos_token_id
+        )
+        suffix_id = (
+            tokenizer.sep_token_id
+            if tokenizer.sep_token_id is not None
+            else tokenizer.eos_token_id
+        )
+        prefix = [int(prefix_id)] if prefix_id is not None else []
+        suffix = [int(suffix_id)] if suffix_id is not None else []
+        if len(prefix) + len(suffix) != tokenizer.num_special_tokens_to_add(pair=False):
+            raise ValueError("unsupported single-sequence special-token layout")
+
+        window_input_ids = prefix + content_ids + suffix
+        window_offsets = (
+            [(0, 0)] * len(prefix)
+            + content_offsets
+            + [(0, 0)] * len(suffix)
+        )
+        if len(window_input_ids) != len(window_offsets):
+            raise RuntimeError("window input_ids and offset_mapping lengths differ")
+
+        feature: ModelFeature = {
+            "input_ids": window_input_ids,
+            "attention_mask": [1] * len(window_input_ids),
+        }
+        if "token_type_ids" in tokenizer.model_input_names:
+            feature["token_type_ids"] = [0] * len(window_input_ids)
+        windows.append((feature, window_offsets))
+
+        if window_end >= len(input_ids):
+            break
     return windows
 
 
 def align_labels(offsets: Offsets, entities: list[JsonObject]) -> list[int]:
-    """Переводит символьные spans в BIO-метки токенов одного окна."""
+    """Переводит spans в BIO, маскируя неточные и обрезанные пересечения."""
 
     labels: list[int] = []
     entity_index = 0
+    content_offsets = [(start, end) for start, end in offsets if start != end]
+    if not content_offsets:
+        return [-100] * len(offsets)
+    window_start = min(start for start, _ in content_offsets)
+    window_end = max(end for _, end in content_offsets)
+
     for start, end in offsets:
         if start == end:
             labels.append(-100)
@@ -222,7 +268,16 @@ def align_labels(offsets: Offsets, entities: list[JsonObject]) -> list[int]:
         if end <= entity["start"] or start >= entity["end"]:
             labels.append(TAG_TO_ID["O"])
             continue
-        prefix = "B" if start <= entity["start"] < end else "I"
+
+        entity_fully_visible = (
+            entity["start"] >= window_start and entity["end"] <= window_end
+        )
+        token_crosses_entity_boundary = start < entity["start"] or end > entity["end"]
+        if not entity_fully_visible or token_crosses_entity_boundary:
+            labels.append(-100)
+            continue
+
+        prefix = "B" if start == entity["start"] else "I"
         labels.append(TAG_TO_ID[f"{prefix}-{entity['label']}"])
     return labels
 
