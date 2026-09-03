@@ -1,0 +1,7 @@
+{
+  "generated_records": 19898,
+  "input": "data/preprocessing/train.jsonl",
+  "mode": "per-record",
+  "note": "The pool should be subsampled; keep every original training record.",
+  "output": "/Users/tsagoll/AI Talent Hub/Hack/data/augmentation/case.jsonl"
+}

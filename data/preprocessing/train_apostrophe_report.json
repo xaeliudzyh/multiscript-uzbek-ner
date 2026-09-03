@@ -1,0 +1,17 @@
+{
+  "canonical_apostrophe": "ʻ",
+  "changed_documents": 2737,
+  "changed_entities": 1090,
+  "english_like_apostrophes_preserved": true,
+  "input": "/Users/tsagoll/AI Talent Hub/Hack/data/train.jsonl",
+  "length_preserving": true,
+  "output": "/Users/tsagoll/AI Talent Hub/Hack/data/preprocessing/train.jsonl",
+  "records": 13000,
+  "replacement_counts": {
+    "'": 7134,
+    "`": 149,
+    "ʼ": 218,
+    "‘": 3482,
+    "’": 741
+  }
+}

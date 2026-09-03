@@ -1,0 +1,14 @@
+{
+  "families": [
+    "english",
+    "russian",
+    "uzbek_cyrillic",
+    "uzbek_latin_generic_places",
+    "uzbek_latin_generic_roles",
+    "uzbek_latin_homonyms",
+    "uzbek_latin_pronouns"
+  ],
+  "generated_records": 100,
+  "output": "/Users/tsagoll/AI Talent Hub/Hack/data/augmentation/hard_negatives.jsonl",
+  "warning": "Keep these as a small precision-oriented fraction of training; do not let templates dominate real data."
+}

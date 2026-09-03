@@ -1,0 +1,13 @@
+{
+  "candidate_bases": {
+    "GEO": 579,
+    "NAME": 817,
+    "ORG": 1209
+  },
+  "generated_records": 12208,
+  "input": "data/preprocessing/train.jsonl",
+  "min_frequency": 3,
+  "min_purity": 1.0,
+  "note": "Synthetic pool; subsample during training and validate impact on real dev data.",
+  "output": "/Users/tsagoll/AI Talent Hub/Hack/data/augmentation/morphology.jsonl"
+}
