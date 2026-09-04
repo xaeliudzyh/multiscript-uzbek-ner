@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "base_model": "FacebookAI/xlm-roberta-base",
+  "tags": [
+    "O",
+    "B-ORG",
+    "I-ORG",
+    "B-NAME",
+    "I-NAME",
+    "B-GEO",
+    "I-GEO"
+  ],
+  "max_length": 512,
+  "stride": 128,
+  "seed": 42
+}

@@ -1,0 +1,11 @@
+.venv/
+venv/
+.git/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+data/
+artifacts/
+notebooks/
+*.ipynb

@@ -1,10 +1,78 @@
-test.ipynb
-ner_uz_hackathon_participant/data/*.json
-ner_uz_hackathon_participant/data/*.jsonl
+# Virtual environment
 .venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# macOS
 .DS_Store
-*/__pycache__/
+
+# =========================
+# Local virtual environments
+# =========================
+.venv/
+venv/
+env/
+ENV/
+
+# =========================
+# Python cache
+# =========================
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+# Jupyter
+# =========================
 .ipynb_checkpoints/
-data/augmentation/script*.jsonl
-data/augmentation/script*.json
-data/.md
+
+# =========================
+# macOS
+# =========================
+.DS_Store
+._*
+__MACOSX/
+
+# =========================
+# IDE
+# =========================
+.idea/
+.vscode/
+
+# =========================
+# ML model weights
+# =========================
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+pytorch_model.bin
+
+# =========================
+# Training artifacts
+# =========================
+checkpoint-*/
+checkpoints/
+outputs/
+runs/
+wandb/
+
+# =========================
+# Generated datasets
+# =========================
+data/augmentation/
+data/preprocessing/
+
+# =========================
+# Temp / cache / logs
+# =========================
+*.log
+*.tmp
+*.temp
+.cache/
+
