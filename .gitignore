@@ -3,6 +3,8 @@ ner_uz_hackathon_participant/data/*.json
 ner_uz_hackathon_participant/data/*.jsonl
 .venv/
 .DS_Store
+*/*/.DS_Store
+*/*/__pycache__/
 */__pycache__/
 .ipynb_checkpoints/
 data/augmentation/script*.jsonl
