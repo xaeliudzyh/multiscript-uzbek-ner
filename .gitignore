@@ -1,15 +1,78 @@
-test.ipynb
-ner_uz_hackathon_participant/data/*.json
-ner_uz_hackathon_participant/data/*.jsonl
+# Virtual environment
 .venv/
-.DS_Store
-*/*/.DS_Store
-*/*/__pycache__/
-*/__pycache__/
-.ipynb_checkpoints/
-data/augmentation/script*.jsonl
-data/augmentation/script*.json
-data/.md
+venv/
 
-normalized*/
-augmented_mmBERT-base
+# Python
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
+
+# =========================
+# Local virtual environments
+# =========================
+.venv/
+venv/
+env/
+ENV/
+
+# =========================
+# Python cache
+# =========================
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# macOS
+# =========================
+.DS_Store
+._*
+__MACOSX/
+
+# =========================
+# IDE
+# =========================
+.idea/
+.vscode/
+
+# =========================
+# ML model weights
+# =========================
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+pytorch_model.bin
+
+# =========================
+# Training artifacts
+# =========================
+checkpoint-*/
+checkpoints/
+outputs/
+runs/
+wandb/
+
+# =========================
+# Generated datasets
+# =========================
+data/augmentation/
+data/preprocessing/
+
+# =========================
+# Temp / cache / logs
+# =========================
+*.log
+*.tmp
+*.temp
+.cache/
+

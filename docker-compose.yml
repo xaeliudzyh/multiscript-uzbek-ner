@@ -1,0 +1,21 @@
+services:
+  entity-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      NER_DEVICE: cpu
+      NER_MODEL_NAME: dashakoryakovskaya/uzbek-ner
+      NER_TOKENIZER_NAME: FacebookAI/xlm-roberta-large
+      NER_TRAIN_PATH: /app/data/train.jsonl
+      NER_API_URL: http://127.0.0.1:8000
+      HF_HOME: /app/.cache/huggingface
+      HF_TOKEN: ${HF_TOKEN:-}
+    volumes:
+      - hf_cache:/app/.cache/huggingface
+    restart: unless-stopped
+
+volumes:
+  hf_cache:
