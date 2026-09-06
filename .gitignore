@@ -10,3 +10,6 @@ ner_uz_hackathon_participant/data/*.jsonl
 data/augmentation/script*.jsonl
 data/augmentation/script*.json
 data/.md
+
+normalized*/
+augmented_mmBERT-base

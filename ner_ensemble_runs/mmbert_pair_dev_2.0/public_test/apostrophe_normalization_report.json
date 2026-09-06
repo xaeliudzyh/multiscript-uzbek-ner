@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "records": 1000,
+  "changed_documents": 174,
+  "replacement_counts": {
+    "'": 533
+  },
+  "length_preserving": true
+}

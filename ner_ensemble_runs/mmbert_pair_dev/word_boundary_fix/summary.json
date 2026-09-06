@@ -1,0 +1,67 @@
+{
+  "models": {
+    "normalized": {
+      "changed_entities": 51,
+      "dropped_after_overlap": 1
+    },
+    "big_augmented": {
+      "changed_entities": 43,
+      "dropped_after_overlap": 1
+    }
+  },
+  "ensemble": {
+    "min_votes": 2,
+    "metrics": {
+      "schema_version": 1,
+      "matching": "same hash and exact label/start/end",
+      "records": 1500,
+      "by_label": {
+        "ORG": {
+          "precision": 0.9411231884057971,
+          "recall": 0.7814968033095149,
+          "f1": 0.8539141154715431,
+          "tp": 2078,
+          "fp": 130,
+          "fn": 581,
+          "gold": 2659,
+          "predicted": 2208
+        },
+        "NAME": {
+          "precision": 0.9507883420926899,
+          "recall": 0.858128503665373,
+          "f1": 0.9020852221214868,
+          "tp": 1990,
+          "fp": 103,
+          "fn": 329,
+          "gold": 2319,
+          "predicted": 2093
+        },
+        "GEO": {
+          "precision": 0.957190357439734,
+          "recall": 0.8466911764705882,
+          "f1": 0.8985563792430745,
+          "tp": 2303,
+          "fp": 103,
+          "fn": 417,
+          "gold": 2720,
+          "predicted": 2406
+        }
+      },
+      "micro": {
+        "precision": 0.9499030863277174,
+        "recall": 0.8276175630033775,
+        "f1": 0.8845539743144742,
+        "tp": 6371,
+        "fp": 336,
+        "fn": 1327,
+        "gold": 7698,
+        "predicted": 6707
+      },
+      "macro": {
+        "precision": 0.9497006293127402,
+        "recall": 0.8287721611484921,
+        "f1": 0.8848519056120349
+      }
+    }
+  }
+}

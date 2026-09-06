@@ -1,0 +1,24 @@
+{
+  "experiment_name": "mmbert_pair_dev",
+  "dev_path": "/Users/tsagoll/AI Talent Hub/Hack/data/preprocessing/dev.jsonl",
+  "models": [
+    {
+      "name": "normalized",
+      "max_length": null,
+      "stride": null,
+      "path": "/Users/tsagoll/AI Talent Hub/Hack/normalized_mmBERT-base/model"
+    },
+    {
+      "name": "big_augmented",
+      "max_length": null,
+      "stride": null,
+      "path": "/Users/tsagoll/AI Talent Hub/Hack/augmented_mmBERT-base/model"
+    }
+  ],
+  "eval_batch_size": 4,
+  "device": "mps",
+  "confidence_field": "probability",
+  "threshold_objective": "f1",
+  "min_votes": 2,
+  "boundary_fix": "expand only boundaries inside a continuous alphanumeric sequence"
+}

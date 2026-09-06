@@ -1,0 +1,9 @@
+{
+  "split": "dev",
+  "model_path": "/Users/tsagoll/AI Talent Hub/Hack/augmented_mmBERT-base/model",
+  "max_length": 512,
+  "stride": 128,
+  "batch_size": 4,
+  "records": 1500,
+  "windows": 1762
+}

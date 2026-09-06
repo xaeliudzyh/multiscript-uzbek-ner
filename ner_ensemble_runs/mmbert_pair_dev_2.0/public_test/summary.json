@@ -1,0 +1,57 @@
+{
+  "records": 1000,
+  "thresholds": {
+    "normalized": {
+      "ORG": 0.7902982234954834,
+      "NAME": 0.7581677436828613,
+      "GEO": 0.706420361995697
+    },
+    "big_augmented": {
+      "ORG": 0.654314398765564,
+      "NAME": 0.5409574508666992,
+      "GEO": 0.6875552535057068
+    }
+  },
+  "boundary_fix": {
+    "normalized": {
+      "changed_entities": 36,
+      "dropped_after_overlap": 3
+    },
+    "big_augmented": {
+      "changed_entities": 25,
+      "dropped_after_overlap": 1
+    }
+  },
+  "ensemble_modes": {
+    "intersection": {
+      "predicted_entities": 3809,
+      "by_label": {
+        "ORG": 1671,
+        "NAME": 1046,
+        "GEO": 1092
+      }
+    },
+    "union": {
+      "predicted_entities": 4619,
+      "by_label": {
+        "ORG": 2040,
+        "GEO": 1292,
+        "NAME": 1287
+      }
+    },
+    "labelwise": {
+      "predicted_entities": 4199,
+      "by_label": {
+        "ORG": 1832,
+        "GEO": 1183,
+        "NAME": 1184
+      }
+    }
+  },
+  "selected_submission_mode": "labelwise",
+  "labelwise_model_by_class": {
+    "ORG": "normalized",
+    "NAME": "big_augmented",
+    "GEO": "normalized"
+  }
+}
