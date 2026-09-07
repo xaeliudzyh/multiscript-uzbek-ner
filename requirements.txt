@@ -9,3 +9,4 @@ transformers>=4.45,<5
 huggingface_hub>=0.28,<2
 safetensors>=0.4
 sentencepiece>=0.2,<1
+tqdm>=4.66

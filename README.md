@@ -185,3 +185,18 @@ scripts/evaluate_service.py
 ```
 
 `streamlit_app.py` используется только как демонстрационный интерфейс и не требуется для проверки обязательного HTTP API.
+
+## Воспроизводимый пайплайн обучения
+
+Установка зависимостей
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+Обучение
+```bash
+python train.py
+```
