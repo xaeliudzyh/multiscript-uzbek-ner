@@ -54,6 +54,8 @@ echo "Starting Streamlit..."
 "$PYTHON" -m streamlit run streamlit_app.py \
   --server.address 127.0.0.1 \
   --server.port 8501 \
+  --server.headless true \
+  --browser.gatherUsageStats false \
   > .demo_logs/frontend.log 2>&1 &
 FRONTEND_PID=$!
 
